@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import { getMusicData } from '../controllers/musicController';
+import { getMusicData } from '../controllers/musicController.js';
 
 const music = new Hono();
 

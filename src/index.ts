@@ -1,6 +1,6 @@
 import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
-import musicRoutes from './routes/music';
+import musicRoutes from './routes/music.js';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
