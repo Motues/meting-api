@@ -61,7 +61,7 @@ export const getMusicData = async (c: Context) => {
       }
     }
 
-    console.log('Result:', result); // 输出结果以供调试
+    // console.log('Result:', result); // 输出结果以供调试
     return c.json(result);
 
   } catch (error) {

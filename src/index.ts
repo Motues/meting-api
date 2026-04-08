@@ -2,6 +2,7 @@ import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import musicRoutes from './routes/music.js';
+import { incrementCounter, getStats } from './utils/counter.js';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
@@ -21,8 +22,14 @@ const app = new Hono()
 
 app.use('*', cors())
 
+app.use('/music/*', async (c, next) => {
+  await incrementCounter();
+  await next();
+});
+
 app.get('/', async (c) => {
-  const readmePath = path.join(__dirname, '../README.md');
+  const stats = await getStats(); // 获取当前统计数据
+  const readmePath = path.join(__dirname, '../doc/api.md');
   const readmeContent = fs.readFileSync(readmePath, 'utf-8');
   const htmlContent = await marked(readmeContent);
   
@@ -41,12 +48,16 @@ app.get('/', async (c) => {
       </style>
     </head>
     <body>
+      <div class="stats-card">
+        <div class="stats-item">今日调用：<b>${stats.today}</b></div>
+        <div class="stats-item">累计调用：<b>${stats.total}</b></div>
+      </div>
+      <hr>
       ${htmlContent}
     </body>
     </html>
   `);
 })
-
 
 // 挂载音乐路由
 app.route('/music', musicRoutes);
