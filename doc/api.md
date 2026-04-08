@@ -2,6 +2,8 @@
 
 基于 [Meting](https://github.com/metowolf/meting) 的 实现的 API
 
+项目地址: [meting-api](https://github.com/Motues/meting-api)
+
 ## 参数说明
 
 `/music?server=[server]&type=[type]&id=[id]`
@@ -93,4 +95,4 @@
 ]
 ```
 
-
+Made with ❤️ by [Motues](https://www.motues.top)

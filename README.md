@@ -20,3 +20,5 @@
 ## 参数说明
 
 [API 接口参考](./doc/api.md) 
+
+> Made with ❤️ by [Motues](https://www.motues.top)
