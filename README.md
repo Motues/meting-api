@@ -1,6 +1,6 @@
 # Meting API
 
-基于 [Meting](https://github.com/metowolf/meting) 的 实现的 API
+基于 [Meting](https://github.com/metowolf/meting) 的 实现的 API，支持网易云、QQ等音乐平台
 
 ## 快速开始
 
@@ -20,5 +20,14 @@
 ## 参数说明
 
 [API 接口参考](./doc/api.md) 
+
+## 环境变量
+
+存放在 `.env` 文件
+
+| 变量名 | 说明 | 
+| ------ | ---- | 
+| `PORT` | 端口号，默认为 3000 |
+| `ALLOW_ORIGIN` | 允许跨域访问的域名，多个域名用英文逗号隔开， `*` 为允许所有域名跨域访问 |
 
 > Made with ❤️ by [Motues](https://www.motues.top)

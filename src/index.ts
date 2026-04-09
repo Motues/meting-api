@@ -3,6 +3,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import musicRoutes from './routes/music.js';
 import { incrementCounter, getStats } from './utils/counter.js';
+import { createRateLimitMiddleware } from './utils/rateLimiter.js';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
@@ -17,10 +18,30 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 
 const port = Number(process.env.PORT) || 3000;
+const allowedOrigins: string[] = process.env.ALLOW_ORIGIN?.split(",") ?? [];
 
 const app = new Hono()
 
-app.use('*', cors())
+// 全局CORS中间件
+app.use('*', cors({
+  origin: (origin) => {
+    if (!allowedOrigins || allowedOrigins.length === 0 || allowedOrigins.includes('*')) {
+      return origin;
+    }
+    return allowedOrigins.includes(origin) ? origin : allowedOrigins[0];
+  },
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  exposeHeaders: ['X-RateLimit-Limit', 'X-RateLimit-Remaining', 'X-RateLimit-Reset', 'Retry-After'],
+  maxAge: 86400,
+  credentials: true,
+}));
+
+// 全针对所有音乐相关接口限制流量
+app.use('/music/*', createRateLimitMiddleware({
+  maxRequests: 120,
+  windowMs: 60 * 1000,
+}));
 
 app.use('/music/*', async (c, next) => {
   await incrementCounter();

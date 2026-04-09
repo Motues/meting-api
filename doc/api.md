@@ -1,6 +1,6 @@
 # Meting API
 
-基于 [Meting](https://github.com/metowolf/meting) 的 实现的 API
+基于 [Meting](https://github.com/metowolf/meting) 的 实现的 API，支持网易云、QQ等音乐平台
 
 项目地址: [meting-api](https://github.com/Motues/meting-api)
 
