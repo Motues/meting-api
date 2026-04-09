@@ -47,7 +47,7 @@ export const getMusicData = async (c: Context) => {
           result = songInfo;
           break;
         case 'url':
-          result = await meting.url(songInfo.url_id, { br });
+          result = await meting.url(songInfo.url_id, parseInt(br));
           result = JSON.parse(result);
           break;
         case 'cover':

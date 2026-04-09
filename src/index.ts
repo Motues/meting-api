@@ -20,6 +20,10 @@ dotenv.config();
 const port = Number(process.env.PORT) || 3000;
 const allowedOrigins: string[] = process.env.ALLOW_ORIGIN?.split(",") ?? [];
 
+const readmePath = path.join(__dirname, '../doc/api.md');
+const readmeContent = fs.readFileSync(readmePath, 'utf-8');
+const htmlContent = await marked(readmeContent);
+
 const app = new Hono()
 
 // 全局CORS中间件
@@ -50,9 +54,6 @@ app.use('/music/*', async (c, next) => {
 
 app.get('/', async (c) => {
   const stats = await getStats(); // 获取当前统计数据
-  const readmePath = path.join(__dirname, '../doc/api.md');
-  const readmeContent = fs.readFileSync(readmePath, 'utf-8');
-  const htmlContent = await marked(readmeContent);
   
   return c.html(`
     <!DOCTYPE html>
@@ -66,12 +67,16 @@ app.get('/', async (c) => {
         pre { background: #f5f5f5; padding: 15px; border-radius: 5px; overflow-x: auto; }
         code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; }
         a { color: #0366d6; }
+        blockquote { border-left: 4px solid #d69a03; margin: 8px 0; padding: 4px 12px; background-color: #fffdf1; color: #24292e; }
+        .stats-card { display: flex; gap: 30px; margin-bottom: 20px; padding: 12px 24px; background-color: #e3f2fd; border-radius: 4px; align-items: center; }
+        .stats-item { color: #1976d2; font-size: 15px; white-space: nowrap; }
+        .stats-item b { color: #000000; font-weight: 600; margin-left: 4px; }
       </style>
     </head>
     <body>
       <div class="stats-card">
-        <div class="stats-item">今日调用：<b>${stats.today}</b></div>
         <div class="stats-item">累计调用：<b>${stats.total}</b></div>
+        <div class="stats-item">今日调用：<b>${stats.today}</b></div>
       </div>
       <hr>
       ${htmlContent}
