@@ -15,15 +15,15 @@
 
 ### id
 
-- 必填参数，为歌曲对应的 ID
+- 必填参数，如果没有特别强调，均为歌曲对应的 ID
 
 ### type
 
-- 可选参数包括：`details`，`url`，`cover`，`lyric`，`search`
+- 可选参数包括：`details`，`name`，`artist`，`url`，`cover`，`lyric`，`playlist`，`search`
 
 #### details
 
-获取歌曲详细信息，请求示例：`/music?server=netease&type=details&id=30431366`
+获取歌曲详细信息，请求示例：[/music?server=netease&type=details&id=30431366](/music?server=netease&type=details&id=30431366)
 
 返回结果：
 
@@ -39,9 +39,34 @@
     "source": "netease"
 }
 ```
+
+#### name
+
+获取歌曲名称，请求示例：[/music?server=netease&type=name&id=30431366](/music?server=netease&type=names&id=30431366)
+
+返回结果：
+
+```json
+{
+  "name": "奇妙能力歌"
+}
+```
+
+#### artist
+
+获取歌曲作者，请求示例：[/music?server=netease&type=artist&id=30431366](/music?server=netease&type=artist&id=30431366)
+
+返回结果：
+
+```json
+{
+  "artist": [ "陈粒" ]
+}
+```
+
 #### url
 
-获取歌曲 URL，请求示例：`/music?server=netease&type=url&id=30431366&br=320`
+获取歌曲 URL，请求示例：[/music?server=netease&type=url&id=30431366&br=320](/music?server=netease&type=url&id=30431366&br=320)
 
 可以通过参数 `br` 来设置歌曲的音质，默认为 `320`
 
@@ -57,7 +82,7 @@
 
 #### cover
 
-获取歌曲封面，请求示例：`/music?server=netease&type=cover&id=30431366&size=300`
+获取歌曲封面，请求示例：[/music?server=netease&type=cover&id=30431366&size=300](/music?server=netease&type=cover&id=30431366&size=300)
 
 > **注意**：id为歌曲的id，不是图片的id
 
@@ -71,7 +96,7 @@
 
 #### lyric
 
-获取歌词，请求示例：`/music?server=netease&type=lyric&id=30431366`
+获取歌词，请求示例：[/music?server=netease&type=lyric&id=30431366](/music?server=netease&type=lyric&id=30431366)
 
 返回结果：
 
@@ -82,11 +107,27 @@
 }
 ```
 
+### playlist
+
+获取歌单，请求示例：[/music?server=netease&type=playlist&id=2305978163](/music?server=netease&type=playlist&id=2305978163)
+
+> **注意**：id为歌单的id
+
+返回结果：
+
+```json
+{
+  "id": 3778678,
+}
+```
+
 #### search
 
-搜索歌曲，请求示例：`/music?server=netease&type=search&id=陈粒&limit=5`
+搜索歌曲，请求示例：[/music?server=netease&type=search&id=陈粒&limit=5](/music?server=netease&type=search&id=陈粒&limit=5)
 
 可以通过参数 `limit` 来设置搜索结果数量，默认为 `5`
+
+> **注意**：id为需要搜索的参数
 
 返回结果：
 

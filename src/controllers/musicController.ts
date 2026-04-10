@@ -20,7 +20,7 @@ export const getMusicData = async (c: Context) => {
     return c.json({ error: 'id is a required parameter' }, 400);
   }
 
-  if (type && !['details', 'url', 'cover', 'lyric', 'search'].includes(type)) {
+  if (type && !['details', 'name', 'artist', 'url', 'cover', 'lyric', 'playlist', 'search'].includes(type)) {
     return c.json({ error: 'Invalid type parameter' }, 400);
   }
 
@@ -35,6 +35,9 @@ export const getMusicData = async (c: Context) => {
     if (type === 'search') {
       const researchResult = await meting.search(id, { limit: parseInt(limit) });
       result = JSON.parse(researchResult);
+    } else if (type === 'playlist') {
+      const playlistResult = await meting.playlist(id);
+      result = JSON.parse(playlistResult);
     } else {
       const details = await meting.song(id);
       if (!details) {
@@ -45,6 +48,12 @@ export const getMusicData = async (c: Context) => {
       switch (type) {
         case 'details':
           result = songInfo;
+          break;
+        case 'name':
+          result = { name: songInfo.name };
+          break;
+        case 'artist':
+          result = { artist: songInfo.artist };
           break;
         case 'url':
           result = await meting.url(songInfo.url_id, parseInt(br));
