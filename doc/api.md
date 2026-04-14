@@ -42,7 +42,7 @@
 
 #### name
 
-获取歌曲名称，请求示例：[/music?server=netease&type=name&id=30431366](/music?server=netease&type=names&id=30431366)
+获取歌曲名称，请求示例：[/music?server=netease&type=name&id=30431366](/music?server=netease&type=name&id=30431366)
 
 返回结果：
 

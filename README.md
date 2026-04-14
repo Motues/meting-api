@@ -1,5 +1,7 @@
 # Meting API
 
+> 本仓库已经合并至 [PublicAPI](https://github.com/Motues/PublicAPI)
+
 ![meting](./doc/meting.png)
 
 基于 [Meting](https://github.com/metowolf/meting) 的 实现的 API，支持网易云、QQ等音乐平台
